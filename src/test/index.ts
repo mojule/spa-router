@@ -20,7 +20,7 @@ describe( 'spa-router', () => {
       log.push( content )
     }
 
-    const app = App<string>( send, noop )
+    const app = App( send, noop )
 
     app.get( 'hello', ( _req, res ) => {
       res.send( 'Hello' )
@@ -52,13 +52,13 @@ describe( 'spa-router', () => {
   it( 'middleware', () => {
     const log: string[] = []
 
-    const logPath: SpaRequestHandler<string> = ( req, _res, next ) => {
+    const logPath: SpaRequestHandler = ( req, _res, next ) => {
       log.push( req.path )
 
       next()
     }
 
-    const logParams: SpaRequestHandler<string> = ( req, _res, next ) => {
+    const logParams: SpaRequestHandler = ( req, _res, next ) => {
       log.push( JSON.stringify( req.params ) )
 
       next()
@@ -102,7 +102,7 @@ describe( 'spa-router', () => {
   it( 'early return from middleware', () => {
     const log: string[] = []
 
-    const logPath: SpaRequestHandler<string> = ( req, _res, next ) => {
+    const logPath: SpaRequestHandler = ( req, _res, next ) => {
       log.push( req.path )
 
       if ( req.path === 'hello/world' ) {
@@ -112,7 +112,7 @@ describe( 'spa-router', () => {
       }
     }
 
-    const logParams: SpaRequestHandler<string> = ( req, _res, next ) => {
+    const logParams: SpaRequestHandler = ( req, _res, next ) => {
       log.push( JSON.stringify( req.params ) )
 
       next()

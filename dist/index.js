@@ -46,7 +46,7 @@ exports.App = (send, redirect) => {
             }
             handlerIndex++;
             handler = handlers[handlerIndex];
-            if (!handler)
+            if (handler === undefined)
                 throw Error('Unexpected next, no more handlers');
             handler(req, res, next);
         };
