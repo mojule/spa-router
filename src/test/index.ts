@@ -1,6 +1,6 @@
 import * as assert from 'assert'
 import { App } from '..'
-import { SpaRequestHandler } from '../types';
+import { SpaRequestHandler } from '../types'
 
 describe( 'spa-router', () => {
   const noop = () => { }

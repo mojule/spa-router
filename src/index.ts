@@ -6,12 +6,12 @@ import {
   SpaApp
 } from './types'
 
-export const App = <T>( send: SpaSend<T>, redirect ) => {
+export const App = <TContent>( send: SpaSend<TContent>, redirect ) => {
   const getRegexpMap = new Map<string, SpaPathRegexp>()
-  const getHandlersMap = new Map<string, SpaRequestHandler<T>[]>()
-  const middlewares: SpaRequestHandler<T>[] = []
+  const getHandlersMap = new Map<string, SpaRequestHandler<TContent>[]>()
+  const middlewares: SpaRequestHandler<TContent>[] = []
 
-  const get: SpaRouteMatcher<T> = ( route, ...handlers ) => {
+  const get: SpaRouteMatcher<TContent> = ( route, ...handlers ) => {
     const keys: pathToRegexp.Key[] = []
     const regexp = pathToRegexp( route, keys )
 
@@ -19,7 +19,7 @@ export const App = <T>( send: SpaSend<T>, redirect ) => {
     getHandlersMap.set( route, handlers )
   }
 
-  const use: SpaRouterHandler<T> = ( ...handlers ) => {
+  const use: SpaRouterHandler<TContent> = ( ...handlers ) => {
     middlewares.push( ...handlers )
   }
 
@@ -44,7 +44,7 @@ export const App = <T>( send: SpaSend<T>, redirect ) => {
     }, {} )
 
     const req: SpaRequest = { path, params }
-    const res: SpaResponse<T> = { send, redirect }
+    const res: SpaResponse<TContent> = { send, redirect }
 
     let middlewareIndex = -1
     let handlerIndex = -1
@@ -68,7 +68,7 @@ export const App = <T>( send: SpaSend<T>, redirect ) => {
 
       handler = handlers[ handlerIndex ]
 
-      if( !handler )
+      if( handler === undefined )
         throw Error( 'Unexpected next, no more handlers' )
 
       handler( req, res, next )
@@ -77,7 +77,7 @@ export const App = <T>( send: SpaSend<T>, redirect ) => {
     next()
   }
 
-  const app: SpaApp<T> = { get, use, router }
+  const app: SpaApp<TContent> = { get, use, router }
 
   return app
 }
