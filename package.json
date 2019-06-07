@@ -1,0 +1,36 @@
+{
+  "name": "@mojule/spa-router",
+  "version": "0.1.0",
+  "description": "Express-like routing for Single Page Apps",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && mocha ./dist/test",
+    "coverage": "tsc && nyc --reporter=html --reporter=text mocha ./dist/test"
+  },
+  "nyc": {
+    "exclude": [
+      "./dist/test"
+    ]
+  },
+  "keywords": [],
+  "author": "Nik Coughlin <nrkn.com@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "path-to-regexp": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^5.2.5",
+    "@types/node": "^10.12.12",
+    "mocha": "^5.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojule/spa-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mojule/spa-router/issues"
+  },
+  "homepage": "https://github.com/mojule/spa-router#readme"
+}
