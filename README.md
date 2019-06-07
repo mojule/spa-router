@@ -83,12 +83,14 @@ const { App } = require( '@mojule/spa-router' )
 const app = App( send, redirect )
 ```
 
-`send` is a function that takes a DOM `Node` and is placed directly on the `res`
-object passed to handlers (see example above)
+`send` is a function that takes a single argument for the content being sent,
+and is placed directly on the `res` object passed to handlers (see
+example above)
 
-`redirect` is also placed directly on the `res` object - it is up to you to call
-`app.router` when `redirect` is called (see the example above where we use
-the hash change event to wire everything up)
+`redirect` is a function that takes a single argument for the path to redirect
+to and is also placed directly on the `res` object - it is up to you to call
+`app.router` when `redirect` is called (see the example above where we use the
+hash change event to wire everything up)
 
 ### app.get
 
@@ -184,7 +186,7 @@ Only has `req.path` and `req.params`
 
 ### res
 
-Only has `res.send( node )` and `res.redirect( path )`
+Only has `res.send( content )` and `res.redirect( path )`
 
 ## Using from TypeScript
 

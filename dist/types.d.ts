@@ -6,24 +6,24 @@ export interface SpaRequest {
     path: string;
     params: ObjectMap<string>;
 }
-export interface SpaResponse<T> {
-    send: SpaSend<T>;
+export interface SpaResponse<TContent> {
+    send: SpaSend<TContent>;
     redirect: SpaRedirect;
 }
 export interface SpaNextFunction {
     (arg?: any): void;
 }
-export interface SpaRequestHandler<T> {
-    (req: SpaRequest, res: SpaResponse<T>, next: SpaNextFunction): void;
+export interface SpaRequestHandler<TContent = any> {
+    (req: SpaRequest, res: SpaResponse<TContent>, next: SpaNextFunction): void;
 }
-export interface SpaRouteMatcher<T> {
-    (path: string, ...handlers: SpaRequestHandler<T>[]): void;
+export interface SpaRouteMatcher<TContent> {
+    (path: string, ...handlers: SpaRequestHandler<TContent>[]): void;
 }
-export interface SpaRouterHandler<T> {
-    (...handlers: SpaRequestHandler<T>[]): void;
+export interface SpaRouterHandler<TContent> {
+    (...handlers: SpaRequestHandler<TContent>[]): void;
 }
-export interface SpaSend<T> {
-    (content: T): void;
+export interface SpaSend<TContent> {
+    (content: TContent): void;
 }
 export interface SpaRedirect {
     (path: string): void;
@@ -32,14 +32,14 @@ export interface SpaPathRegexp {
     keys: pathToRegexp.Key[];
     regexp: RegExp;
 }
-export interface SpaAppFactory<T = any> {
-    (send: SpaSend<T>, redirect: SpaRedirect): SpaApp<T>;
+export interface SpaAppFactory<TContent = any> {
+    (send: SpaSend<TContent>, redirect: SpaRedirect): SpaApp<TContent>;
 }
 export interface SpaRouter {
     (path: string): void;
 }
-export interface SpaApp<T> {
-    get: SpaRouteMatcher<T>;
-    use: SpaRouterHandler<T>;
+export interface SpaApp<TContent> {
+    get: SpaRouteMatcher<TContent>;
+    use: SpaRouterHandler<TContent>;
     router: SpaRouter;
 }
