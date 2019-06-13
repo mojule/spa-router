@@ -6,6 +6,12 @@ import {
   SpaApp
 } from './types'
 
+export {
+  SpaRequestHandler, SpaRouteMatcher, SpaPathRegexp, SpaRouterHandler,
+  SpaRouter, SpaNextFunction, SpaRequest, ObjectMap, SpaResponse, SpaSend,
+  SpaApp
+} from './types'
+
 export const App = <TContent>( send: SpaSend<TContent>, redirect ) => {
   const getRegexpMap = new Map<string, SpaPathRegexp>()
   const getHandlersMap = new Map<string, SpaRequestHandler<TContent>[]>()
